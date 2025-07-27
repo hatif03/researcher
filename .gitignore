@@ -26,7 +26,7 @@ var/
 *.pyc
 backend/temp_*.pdf
 backend/.env
-!backend/env.example
+!backend/.env.example
 backend/logs/
 
 # React Frontend
