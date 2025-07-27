@@ -43,7 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Desktop Sidebar */}
       <div className={`hidden md:flex flex-col w-72 ${darkMode ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-200'} border-r transition-colors duration-200`}>
         <div className="p-6">
-          <h1 className="text-2xl font-bold gradient-text">DeepR</h1>
+          <h1 className="text-2xl font-bold gradient-text">Researcher</h1>
           <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'} text-sm mt-1 transition-colors duration-200`}>Research Platform</p>
         </div>
         
@@ -110,7 +110,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Mobile Header */}
       <div className={`md:hidden fixed top-0 left-0 right-0 ${darkMode ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-200'} border-b z-10 transition-colors duration-200`}>
         <div className="flex items-center justify-between p-4">
-          <h1 className="text-xl font-bold gradient-text">DeepR</h1>
+          <h1 className="text-xl font-bold gradient-text">Researcher</h1>
           <div className="flex items-center">
             {/* Dark mode toggle for mobile */}
             <button 
@@ -190,12 +190,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <footer className={`py-4 px-6 text-center ${darkMode ? 'text-gray-400' : 'text-gray-500'} text-sm`}>
           built by{' '}
           <a
-            href="https://raihankhan.dev"
+            href="https://github.com/hatif03"
             target="_blank"
             rel="noopener noreferrer"
             className={`font-medium hover:text-primary-600 transition-colors duration-200 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
           >
-            raihan khan
+            hatif03
           </a>
         </footer>
       </div>
