@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { FiLoader, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiLoader, FiAlertCircle } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 
 const AuthCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const { handleAuthCallback } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [error, setError] = useState<string | null>(null);
@@ -30,13 +30,18 @@ const AuthCallback: React.FC = () => {
           return;
         }
         
-        await handleAuthCallback(code);
-        setStatus('success');
-        
-        // Redirect to home after a short delay
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
+        // Check if authentication was successful
+        if (isAuthenticated) {
+          setStatus('success');
+          
+          // Redirect to home after a short delay
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        } else {
+          setStatus('error');
+          setError('Authentication failed. Please try again.');
+        }
         
       } catch (err: any) {
         console.error('Auth callback error:', err);
@@ -46,7 +51,7 @@ const AuthCallback: React.FC = () => {
     };
     
     processCallback();
-  }, [searchParams, handleAuthCallback, navigate]);
+  }, [searchParams, isAuthenticated, navigate]);
 
   return (
     <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200`}>
@@ -66,7 +71,7 @@ const AuthCallback: React.FC = () => {
         {status === 'success' && (
           <>
             <div className={`w-24 h-24 border-2 border-neo-black dark:border-neo-white shadow-neo-lg ${darkMode ? 'bg-neo-green' : 'bg-neo-green'} flex items-center justify-center mx-auto mb-8`}>
-              <FiCheckCircle className="text-neo-white text-4xl" />
+              <span className="text-neo-white text-6xl font-black">✓</span>
             </div>
             <h2 className="text-3xl font-black mb-4">SUCCESS!</h2>
             <p className={`text-lg font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'} mb-6`}>

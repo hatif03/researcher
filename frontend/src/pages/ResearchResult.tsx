@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import researchService from '../services/researchService';
-import { FiDownload, FiExternalLink, FiLoader, FiAlertCircle, FiArrowLeft } from 'react-icons/fi';
+import { FiDownload, FiExternalLink, FiLoader, FiAlertCircle } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -135,7 +135,7 @@ const ResearchResult: React.FC = () => {
           <h2 className="text-3xl font-black mb-6">ERROR</h2>
           <p className="font-bold mb-8">{error}</p>
           <Link to="/research" className="btn btn-primary inline-flex items-center text-lg">
-            <FiArrowLeft className="mr-2 text-xl" />
+            <span className="mr-2 text-xl">←</span>
             START NEW RESEARCH
           </Link>
         </div>
@@ -152,7 +152,7 @@ const ResearchResult: React.FC = () => {
       {/* Header */}
       <div className="mb-8">
         <Link to="/history" className="btn btn-secondary inline-flex items-center mb-6">
-          <FiArrowLeft className="mr-2 text-xl" />
+          <span className="mr-2 text-xl">←</span>
           BACK TO HISTORY
         </Link>
         

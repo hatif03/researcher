@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
 
 // API URL from environment with HTTPS enforcement
-const API_URL = process.env.REACT_APP_API_URL?.replace('http://', 'https://');
+const API_URL = process.env.REACT_APP_API_URL;
 
 // Initialize Supabase client
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || '';
