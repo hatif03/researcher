@@ -40,7 +40,10 @@ interface AuthService {
 // Auth service with methods for auth operations
 const authService: AuthService = {
   login: async (email: string, password: string) => {
-    const response = await api.post('/auth/token', { username: email, password });
+    const formData = new URLSearchParams();
+    formData.append('username', email);
+    formData.append('password', password);
+    const response = await api.post('/auth/token', formData);
     if (response.data.access_token) {
       localStorage.setItem('access_token', response.data.access_token);
     }

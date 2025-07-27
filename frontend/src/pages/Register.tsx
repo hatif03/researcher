@@ -99,12 +99,12 @@ const Register: React.FC = () => {
     <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-dark-100' : 'bg-gray-50'} py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200`}>
       <div className={`max-w-md w-full ${darkMode ? 'bg-dark-200' : 'bg-white'} shadow-custom rounded-2xl p-8 transition-colors duration-200`}>
         <div className="text-center">
-          <h1 className="text-4xl font-bold gradient-text mb-2">DeepR</h1>
+          <h1 className="text-4xl font-bold gradient-text mb-2">Researcher</h1>
           <h2 className={`mt-4 text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} transition-colors duration-200`}>
             Create Account
           </h2>
           <p className={`mt-2 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} transition-colors duration-200`}>
-            Join DeepR to start your research journey
+            Join Researcher to start your research journey
           </p>
         </div>
 

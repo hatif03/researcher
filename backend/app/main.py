@@ -20,7 +20,9 @@ app = FastAPI(
 )
 
 # Configure CORS
-origins = []
+origins = [
+    'http://localhost:3000'
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,7 +40,7 @@ app.include_router(research.router, prefix="/api/research", tags=["research"])
 @app.get("/")
 async def root():
     print("Root endpoint was called!")
-    return {"message": "Welcome to DeepR API"}
+    return {"message": "Welcome to Researcher API"}
 
 @app.get("/health")
 async def health_check():

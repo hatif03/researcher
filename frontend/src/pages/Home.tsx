@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          Welcome to <span className="gradient-text">DeepR</span>, {user?.username}!
+          Welcome to <span className="gradient-text">Researcher</span>, {user?.username}!
         </h1>
         <p className={`text-xl ${darkMode ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}>
           Your AI-powered research assistant. Get comprehensive reports on any topic with just a few clicks.

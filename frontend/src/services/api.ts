@@ -13,7 +13,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 export const api = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'apikey': supabaseKey // Add Supabase anon key to all requests
   },
   withCredentials: false // Change to false to test basic connectivity
