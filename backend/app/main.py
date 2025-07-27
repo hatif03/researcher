@@ -6,6 +6,9 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 
+# Import routers
+from app.routers import research, auth, users
+
 # Load environment variables
 load_dotenv()
 
@@ -26,6 +29,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 
 @app.get("/")
 async def root():
