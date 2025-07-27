@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   --transition-duration: 0.2s;
@@ -15,48 +16,60 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply bg-gray-50 text-gray-900 transition-colors duration-200;
+  @apply bg-neo-white text-neo-black transition-colors duration-200;
 }
 
 .dark body {
-  @apply bg-dark-100 text-gray-100;
+  @apply bg-neo-black text-neo-white;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 /* Custom utility classes */
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded-xl font-medium transition-all duration-200 flex items-center justify-center;
+    @apply px-6 py-3 font-bold transition-all duration-200 flex items-center justify-center border-2 border-neo-black transform hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-neo;
   }
   
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600;
+    @apply bg-neo-blue text-neo-white shadow-neo-blue hover:bg-neo-blue/90;
   }
   
   .btn-secondary {
-    @apply bg-secondary-100 text-secondary-800 hover:bg-secondary-200 dark:bg-dark-300 dark:text-gray-100 dark:hover:bg-dark-200;
+    @apply bg-neo-yellow text-neo-black shadow-neo-yellow hover:bg-neo-yellow/90;
+  }
+
+  .btn-danger {
+    @apply bg-neo-red text-neo-white shadow-neo-red hover:bg-neo-red/90;
+  }
+
+  .btn-success {
+    @apply bg-neo-green text-neo-white shadow-neo-green hover:bg-neo-green/90;
   }
   
   .card {
-    @apply bg-white rounded-2xl shadow-custom p-6 transition-all duration-200 dark:bg-dark-200 dark:shadow-dark;
+    @apply bg-neo-white border-2 border-neo-black shadow-neo p-6 transition-all duration-200 dark:bg-neo-black dark:border-neo-white dark:shadow-neo;
+  }
+
+  .card-hover {
+    @apply hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-neo;
   }
   
   .input {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 dark:bg-dark-300 dark:border-dark-400 dark:text-white dark:focus:ring-primary-600;
+    @apply w-full px-4 py-3 border-2 border-neo-black bg-neo-white focus:outline-none focus:ring-2 focus:ring-neo-blue focus:border-neo-blue transition-all duration-200 dark:bg-neo-black dark:border-neo-white dark:text-neo-white dark:focus:ring-neo-blue dark:focus:border-neo-blue shadow-neo-inner;
   }
 
-  /* Modern search input */
+  /* Neo-brutalism search input */
   .search-input {
-    @apply w-full px-5 py-4 text-lg border-0 rounded-2xl shadow-custom focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-200 dark:bg-dark-300 dark:text-white dark:focus:ring-primary-600 dark:shadow-dark;
+    @apply w-full px-5 py-4 text-lg border-2 border-neo-black bg-neo-white focus:outline-none focus:ring-2 focus:ring-neo-blue focus:border-neo-blue transition-all duration-200 dark:bg-neo-black dark:border-neo-white dark:text-neo-white dark:focus:ring-neo-blue dark:focus:border-neo-blue shadow-neo-inner;
   }
 
   /* Gradient text */
   .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-neo-blue to-neo-purple;
   }
 
   /* Animated background */
@@ -66,7 +79,62 @@ code {
   
   .animated-bg::before {
     content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-primary-100 to-primary-50 dark:from-primary-900 dark:to-primary-800 opacity-50 -z-10;
+    @apply absolute inset-0 bg-gradient-to-r from-neo-yellow/20 to-neo-orange/20 dark:from-neo-purple/20 dark:to-neo-blue/20 -z-10;
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Neo-brutalism specific classes */
+  .neo-border {
+    @apply border-2 border-neo-black dark:border-neo-white;
+  }
+
+  .neo-shadow {
+    @apply shadow-neo;
+  }
+
+  .neo-shadow-lg {
+    @apply shadow-neo-lg;
+  }
+
+  .neo-shadow-xl {
+    @apply shadow-neo-xl;
+  }
+
+  .neo-button {
+    @apply btn transform hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-neo;
+  }
+
+  .neo-card {
+    @apply card card-hover;
+  }
+
+  .neo-input {
+    @apply input;
+  }
+
+  /* Navigation styles */
+  .nav-item {
+    @apply flex items-center py-3 px-4 border-2 border-transparent font-bold transition-all duration-200 hover:border-neo-black hover:translate-x-1 hover:translate-y-1 hover:shadow-neo active:translate-x-0 active:translate-y-0 active:shadow-none;
+  }
+
+  .nav-item-active {
+    @apply border-neo-black bg-neo-yellow text-neo-black shadow-neo dark:border-neo-white dark:bg-neo-purple dark:text-neo-white;
+  }
+
+  /* Status indicators */
+  .status-badge {
+    @apply px-3 py-1 text-sm font-bold border-2 border-neo-black shadow-neo;
+  }
+
+  .status-pending {
+    @apply bg-neo-yellow text-neo-black;
+  }
+
+  .status-completed {
+    @apply bg-neo-green text-neo-white;
+  }
+
+  .status-error {
+    @apply bg-neo-red text-neo-white;
   }
 } 

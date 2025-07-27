@@ -39,12 +39,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className={`flex h-screen ${darkMode ? 'bg-dark-100' : 'bg-gray-50'} transition-colors duration-200`}>
+    <div className={`flex h-screen ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} transition-colors duration-200`}>
       {/* Desktop Sidebar */}
-      <div className={`hidden md:flex flex-col w-72 ${darkMode ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-200'} border-r transition-colors duration-200`}>
-        <div className="p-6">
-          <h1 className="text-2xl font-bold gradient-text">Researcher</h1>
-          <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'} text-sm mt-1 transition-colors duration-200`}>Research Platform</p>
+      <div className={`hidden md:flex flex-col w-72 ${darkMode ? 'bg-neo-black border-neo-white' : 'bg-neo-white border-neo-black'} border-r-2 transition-colors duration-200`}>
+        <div className="p-6 border-b-2 border-neo-black dark:border-neo-white">
+          <h1 className="text-3xl font-black gradient-text">RESEARCHER</h1>
+          <p className={`${darkMode ? 'text-neo-white/70' : 'text-neo-black/70'} text-sm mt-1 font-bold transition-colors duration-200`}>RESEARCH PLATFORM</p>
         </div>
         
         <nav className="flex-1 px-4 py-4">
@@ -53,40 +53,38 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex items-center py-3 px-4 rounded-xl transition-colors duration-200 ${
+                  className={`nav-item ${
                     location.pathname === item.path
-                      ? darkMode 
-                        ? 'bg-dark-300 text-primary-400' 
-                        : 'bg-primary-50 text-primary-600'
+                      ? 'nav-item-active'
                       : darkMode
-                        ? 'text-gray-300 hover:bg-dark-300'
-                        : 'text-gray-600 hover:bg-gray-100'
+                        ? 'text-neo-white hover:bg-neo-purple/20'
+                        : 'text-neo-black hover:bg-neo-yellow/20'
                   }`}
                 >
                   {item.icon}
-                  <span className="ml-3">{item.label}</span>
+                  <span className="ml-3 font-bold">{item.label}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
         
-        <div className={`p-4 border-t ${darkMode ? 'border-dark-300' : 'border-gray-200'} transition-colors duration-200`}>
+        <div className={`p-4 border-t-2 ${darkMode ? 'border-neo-white' : 'border-neo-black'} transition-colors duration-200`}>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <div className={`${darkMode ? 'bg-dark-300 text-primary-400' : 'bg-primary-100 text-primary-600'} p-2 rounded-full transition-colors duration-200`}>
+              <div className={`${darkMode ? 'bg-neo-purple text-neo-white' : 'bg-neo-yellow text-neo-black'} p-2 border-2 border-neo-black dark:border-neo-white shadow-neo transition-colors duration-200`}>
                 <FiUser size={18} />
               </div>
               <div className="ml-3">
-                <p className="font-medium text-sm">{user?.username}</p>
-                <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} transition-colors duration-200`}>{user?.email}</p>
+                <p className="font-bold text-sm">{user?.username}</p>
+                <p className={`text-xs ${darkMode ? 'text-neo-white/70' : 'text-neo-black/70'} transition-colors duration-200`}>{user?.email}</p>
               </div>
             </div>
             
             {/* Dark mode toggle */}
             <button 
               onClick={toggleDarkMode}
-              className={`p-2 rounded-full ${darkMode ? 'bg-dark-300 text-yellow-300' : 'bg-gray-100 text-gray-600'} transition-colors duration-200`}
+              className={`p-2 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-yellow text-neo-black' : 'bg-neo-purple text-neo-white'} transition-all duration-200 hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
               aria-label="Toggle dark mode"
             >
               {darkMode ? <BsSun size={18} /> : <BsMoon size={18} />}
@@ -95,27 +93,27 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           
           <button
             onClick={handleLogout}
-            className={`flex items-center w-full py-2 px-3 text-sm rounded-lg transition-colors duration-200 ${
+            className={`flex items-center w-full py-2 px-3 text-sm font-bold border-2 border-neo-black dark:border-neo-white shadow-neo transition-all duration-200 ${
               darkMode 
-                ? 'text-gray-300 hover:bg-dark-300' 
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
+                ? 'text-neo-white bg-neo-red hover:bg-neo-red/90' 
+                : 'text-neo-black bg-neo-red hover:bg-neo-red/90'
+            } hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
           >
             <FiLogOut size={18} />
-            <span className="ml-3">Logout</span>
+            <span className="ml-3">LOGOUT</span>
           </button>
         </div>
       </div>
       
       {/* Mobile Header */}
-      <div className={`md:hidden fixed top-0 left-0 right-0 ${darkMode ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-200'} border-b z-10 transition-colors duration-200`}>
+      <div className={`md:hidden fixed top-0 left-0 right-0 ${darkMode ? 'bg-neo-black border-neo-white' : 'bg-neo-white border-neo-black'} border-b-2 z-10 transition-colors duration-200`}>
         <div className="flex items-center justify-between p-4">
-          <h1 className="text-xl font-bold gradient-text">Researcher</h1>
+          <h1 className="text-2xl font-black gradient-text">RESEARCHER</h1>
           <div className="flex items-center">
             {/* Dark mode toggle for mobile */}
             <button 
               onClick={toggleDarkMode}
-              className={`p-2 mr-2 rounded-full ${darkMode ? 'bg-dark-300 text-yellow-300' : 'bg-gray-100 text-gray-600'} transition-colors duration-200`}
+              className={`p-2 mr-2 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-yellow text-neo-black' : 'bg-neo-purple text-neo-white'} transition-all duration-200 hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
               aria-label="Toggle dark mode"
             >
               {darkMode ? <BsSun size={18} /> : <BsMoon size={18} />}
@@ -123,11 +121,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             
             <button
               onClick={toggleMobileMenu}
-              className={`p-2 rounded-lg ${
+              className={`p-2 border-2 border-neo-black dark:border-neo-white shadow-neo ${
                 darkMode 
-                  ? 'text-gray-300 hover:bg-dark-300' 
-                  : 'text-gray-600 hover:bg-gray-100'
-              } transition-colors duration-200`}
+                  ? 'text-neo-white bg-neo-black hover:bg-neo-purple/20' 
+                  : 'text-neo-black bg-neo-white hover:bg-neo-yellow/20'
+              } transition-all duration-200 hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
             >
               {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
@@ -136,25 +134,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className={`${darkMode ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-200'} border-b transition-colors duration-200 py-2`}>
+          <div className={`${darkMode ? 'bg-neo-black border-neo-white' : 'bg-neo-white border-neo-black'} border-b-2 transition-colors duration-200 py-2`}>
             <ul className="space-y-1">
               {navigationItems.map((item) => (
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`flex items-center py-3 px-4 transition-colors duration-200 ${
+                    className={`nav-item ${
                       location.pathname === item.path
-                        ? darkMode 
-                          ? 'bg-dark-300 text-primary-400' 
-                          : 'bg-primary-50 text-primary-600'
+                        ? 'nav-item-active'
                         : darkMode
-                          ? 'text-gray-300 hover:bg-dark-300'
-                          : 'text-gray-600 hover:bg-gray-100'
+                          ? 'text-neo-white hover:bg-neo-purple/20'
+                          : 'text-neo-black hover:bg-neo-yellow/20'
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.icon}
-                    <span className="ml-3">{item.label}</span>
+                    <span className="ml-3 font-bold">{item.label}</span>
                   </Link>
                 </li>
               ))}
@@ -164,14 +160,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     handleLogout();
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`flex items-center w-full py-3 px-4 transition-colors duration-200 ${
+                  className={`nav-item w-full ${
                     darkMode 
-                      ? 'text-gray-300 hover:bg-dark-300' 
-                      : 'text-gray-600 hover:bg-gray-100'
+                      ? 'text-neo-white bg-neo-red hover:bg-neo-red/90' 
+                      : 'text-neo-black bg-neo-red hover:bg-neo-red/90'
                   }`}
                 >
                   <FiLogOut size={20} />
-                  <span className="ml-3">Logout</span>
+                  <span className="ml-3 font-bold">LOGOUT</span>
                 </button>
               </li>
             </ul>
@@ -187,15 +183,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </main>
         
         {/* Footer */}
-        <footer className={`py-4 px-6 text-center ${darkMode ? 'text-gray-400' : 'text-gray-500'} text-sm`}>
-          built by{' '}
+        <footer className={`py-4 px-6 text-center ${darkMode ? 'text-neo-white/70' : 'text-neo-black/70'} text-sm font-bold border-t-2 ${darkMode ? 'border-neo-white' : 'border-neo-black'}`}>
+          BUILT BY{' '}
           <a
             href="https://github.com/hatif03"
             target="_blank"
             rel="noopener noreferrer"
-            className={`font-medium hover:text-primary-600 transition-colors duration-200 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+            className={`font-black hover:text-neo-blue transition-colors duration-200 ${darkMode ? 'text-neo-white' : 'text-neo-black'}`}
           >
-            hatif03
+            HATIF03
           </a>
         </footer>
       </div>

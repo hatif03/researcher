@@ -46,20 +46,20 @@ const Research: React.FC = () => {
       )}
       
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="gradient-text">Deep Research</span>
+        <h1 className="text-5xl md:text-7xl font-black mb-6">
+          <span className="gradient-text">DEEP RESEARCH</span>
         </h1>
-        <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} max-w-2xl mx-auto text-lg`}>
-          Enter your research topic and our AI will generate a comprehensive, academic-quality report with sources.
+        <p className={`${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'} max-w-3xl mx-auto text-xl font-bold`}>
+          ENTER YOUR RESEARCH TOPIC AND OUR AI WILL GENERATE A COMPREHENSIVE, ACADEMIC-QUALITY REPORT WITH SOURCES.
         </p>
       </div>
       
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <form onSubmit={handleSubmit} className="mb-8">
           {error && (
-            <div className={`${darkMode ? 'bg-red-900/20 border-red-700' : 'bg-red-50 border-red-500'} border-l-4 p-4 rounded-lg mb-6 flex items-start`}>
-              <FiAlertCircle className="text-red-500 mt-0.5 mr-3 flex-shrink-0" />
-              <p className={`text-sm ${darkMode ? 'text-red-400' : 'text-red-700'}`}>{error}</p>
+            <div className={`${darkMode ? 'bg-neo-red/20 border-neo-red' : 'bg-neo-red/20 border-neo-red'} border-2 p-4 shadow-neo mb-6 flex items-start`}>
+              <FiAlertCircle className="text-neo-red mt-0.5 mr-3 flex-shrink-0 text-xl" />
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-red' : 'text-neo-red'}`}>{error}</p>
             </div>
           )}
           
@@ -68,15 +68,15 @@ const Research: React.FC = () => {
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="search-input pr-14"
-              placeholder="What do you want to know?"
+              className="search-input pr-16 text-xl font-bold"
+              placeholder="WHAT DO YOU WANT TO KNOW?"
               disabled={isSubmitting}
               required
             />
             <button
               type="submit"
               disabled={isSubmitting}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors duration-200 disabled:opacity-70"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-3 border-2 border-neo-black dark:border-neo-white bg-neo-blue text-neo-white shadow-neo hover:bg-neo-blue/90 transition-all duration-200 disabled:opacity-70 hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0"
               aria-label="Start Research"
             >
               {isSubmitting ? (
@@ -88,31 +88,64 @@ const Research: React.FC = () => {
           </div>
         </form>
         
-        <div className={`rounded-2xl p-6 ${darkMode ? 'bg-dark-200' : 'bg-white'} shadow-custom animated-bg`}>
-          <h3 className={`text-lg font-medium ${darkMode ? 'text-primary-400' : 'text-primary-800'} mb-4`}>What can you research?</h3>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className={`p-4 rounded-xl ${darkMode ? 'bg-dark-300' : 'bg-gray-50'}`}>
-              <h4 className="font-medium mb-2">Academic Topics</h4>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                "The impact of climate change on ocean ecosystems"
+        <div className={`neo-card ${darkMode ? 'bg-neo-black/50' : 'bg-neo-white'} animated-bg`}>
+          <h3 className={`text-xl font-black ${darkMode ? 'text-neo-blue' : 'text-neo-blue'} mb-6`}>WHAT CAN YOU RESEARCH?</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className={`p-6 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-purple/20' : 'bg-neo-yellow/20'}`}>
+              <h4 className="font-black text-lg mb-3">ACADEMIC TOPICS</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                "THE IMPACT OF CLIMATE CHANGE ON OCEAN ECOSYSTEMS"
               </p>
             </div>
-            <div className={`p-4 rounded-xl ${darkMode ? 'bg-dark-300' : 'bg-gray-50'}`}>
-              <h4 className="font-medium mb-2">Historical Events</h4>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                "The economic consequences of the Industrial Revolution"
+            <div className={`p-6 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-green/20' : 'bg-neo-orange/20'}`}>
+              <h4 className="font-black text-lg mb-3">BUSINESS RESEARCH</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                "MARKET ANALYSIS OF ELECTRIC VEHICLE INDUSTRY"
               </p>
             </div>
-            <div className={`p-4 rounded-xl ${darkMode ? 'bg-dark-300' : 'bg-gray-50'}`}>
-              <h4 className="font-medium mb-2">Technology Trends</h4>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                "The evolution and future of artificial intelligence"
+            <div className={`p-6 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-orange/20' : 'bg-neo-green/20'}`}>
+              <h4 className="font-black text-lg mb-3">TECHNOLOGY TRENDS</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                "THE FUTURE OF ARTIFICIAL INTELLIGENCE IN HEALTHCARE"
               </p>
             </div>
-            <div className={`p-4 rounded-xl ${darkMode ? 'bg-dark-300' : 'bg-gray-50'}`}>
-              <h4 className="font-medium mb-2">Health & Medicine</h4>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                "Advances in cancer treatment over the last decade"
+            <div className={`p-6 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-yellow/20' : 'bg-neo-purple/20'}`}>
+              <h4 className="font-black text-lg mb-3">HISTORICAL EVENTS</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                "THE ECONOMIC IMPACT OF THE INDUSTRIAL REVOLUTION"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className={`mt-8 neo-card ${darkMode ? 'bg-neo-black/50' : 'bg-neo-white'}`}>
+          <h3 className={`text-xl font-black ${darkMode ? 'text-neo-green' : 'text-neo-green'} mb-6`}>RESEARCH FEATURES</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className={`w-16 h-16 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-green' : 'bg-neo-green'} flex items-center justify-center mx-auto mb-4`}>
+                <span className="text-2xl font-black text-neo-white">📊</span>
+              </div>
+              <h4 className="font-black text-lg mb-2">COMPREHENSIVE ANALYSIS</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                DETAILED RESEARCH WITH MULTIPLE SOURCES
+              </p>
+            </div>
+            <div className="text-center">
+              <div className={`w-16 h-16 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-blue' : 'bg-neo-blue'} flex items-center justify-center mx-auto mb-4`}>
+                <span className="text-2xl font-black text-neo-white">📚</span>
+              </div>
+              <h4 className="font-black text-lg mb-2">ACADEMIC CITATIONS</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                PROPERLY CITED SOURCES AND REFERENCES
+              </p>
+            </div>
+            <div className="text-center">
+              <div className={`w-16 h-16 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-purple' : 'bg-neo-purple'} flex items-center justify-center mx-auto mb-4`}>
+                <span className="text-2xl font-black text-neo-white">📄</span>
+              </div>
+              <h4 className="font-black text-lg mb-2">PDF EXPORT</h4>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                DOWNLOAD REPORTS AS PROFESSIONAL PDFS
               </p>
             </div>
           </div>

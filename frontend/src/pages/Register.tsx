@@ -96,93 +96,115 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-dark-100' : 'bg-gray-50'} py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200`}>
-      <div className={`max-w-md w-full ${darkMode ? 'bg-dark-200' : 'bg-white'} shadow-custom rounded-2xl p-8 transition-colors duration-200`}>
+    <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200`}>
+      <div className={`max-w-md w-full ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} shadow-neo-lg border-2 border-neo-black dark:border-neo-white p-8 transition-colors duration-200`}>
         <div className="text-center">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Researcher</h1>
-          <h2 className={`mt-4 text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} transition-colors duration-200`}>
-            Create Account
+          <h1 className="text-5xl font-black gradient-text mb-2">RESEARCHER</h1>
+          <h2 className={`mt-4 text-3xl font-black ${darkMode ? 'text-neo-white' : 'text-neo-black'} transition-colors duration-200`}>
+            CREATE ACCOUNT
           </h2>
-          <p className={`mt-2 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} transition-colors duration-200`}>
-            Join Researcher to start your research journey
+          <p className={`mt-2 text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'} transition-colors duration-200`}>
+            JOIN US AND START YOUR RESEARCH JOURNEY
           </p>
         </div>
-
+        
         {/* Google Sign In Button */}
         <div className="mt-8">
           <button
             onClick={handleGoogleSignIn}
             disabled={isGoogleLoading}
-            className={`w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
-              ${darkMode ? 'bg-dark-300 hover:bg-dark-400' : 'bg-white hover:bg-gray-50'} 
-              transition-colors duration-200`}
+            className={`w-full flex items-center justify-center px-4 py-3 border-2 border-neo-black dark:border-neo-white shadow-neo 
+              ${darkMode ? 'bg-neo-black hover:bg-neo-purple/20' : 'bg-neo-white hover:bg-neo-yellow/20'} 
+              transition-all duration-200 font-bold hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
           >
             {isGoogleLoading ? (
-              <svg className="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-5 w-5 text-neo-black dark:text-neo-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             ) : (
               <>
                 <FcGoogle className="w-5 h-5" />
-                <span className={`ml-2 ${darkMode ? 'text-white' : 'text-gray-700'}`}>
-                  Continue with Google
+                <span className={`ml-2 font-bold ${darkMode ? 'text-neo-white' : 'text-neo-black'}`}>
+                  CONTINUE WITH GOOGLE
                 </span>
               </>
             )}
           </button>
         </div>
 
-        <div className="mt-8 flex items-center">
-          <div className="flex-1 border-t border-gray-300"></div>
-          <div className={`px-4 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Or</div>
-          <div className="flex-1 border-t border-gray-300"></div>
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t-2 border-neo-black dark:border-neo-white"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className={`px-2 font-bold ${darkMode ? 'bg-neo-black text-neo-white' : 'bg-neo-white text-neo-black'}`}>
+                OR CONTINUE WITH EMAIL
+              </span>
+            </div>
+          </div>
         </div>
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {error && (
-            <div className={`${darkMode ? 'bg-red-900/20 border-red-700' : 'bg-red-50 border-red-500'} border-l-4 p-4 rounded transition-colors duration-200`}>
-              <p className={`text-sm ${darkMode ? 'text-red-400' : 'text-red-700'} transition-colors duration-200`}>{error}</p>
+            <div className={`${darkMode ? 'bg-neo-red/20 border-neo-red' : 'bg-neo-red/20 border-neo-red'} border-2 p-4 shadow-neo flex items-start`}>
+              <div className="text-neo-red mt-0.5 mr-3 flex-shrink-0 text-xl">⚠️</div>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-red' : 'text-neo-red'}`}>{error}</p>
             </div>
           )}
-          
-          <div className="space-y-4">
+
+          <div>
+            <label htmlFor="username" className={`block text-sm font-black ${darkMode ? 'text-neo-white' : 'text-neo-black'} mb-2`}>
+              USERNAME
+            </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FiUser className={`h-5 w-5 ${darkMode ? 'text-gray-500' : 'text-gray-400'} transition-colors duration-200`} />
+                <FiUser className={`h-5 w-5 ${darkMode ? 'text-neo-white/50' : 'text-neo-black/50'}`} />
               </div>
               <input
                 id="username"
                 name="username"
                 type="text"
+                autoComplete="username"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className={`input pl-10 ${darkMode ? 'bg-dark-300 border-dark-400 text-white' : 'bg-white border-gray-300 text-gray-900'} transition-colors duration-200`}
-                placeholder="Username"
+                className={`neo-input pl-10 text-lg font-bold`}
+                placeholder="ENTER YOUR USERNAME"
               />
             </div>
-            
+          </div>
+
+          <div>
+            <label htmlFor="email" className={`block text-sm font-black ${darkMode ? 'text-neo-white' : 'text-neo-black'} mb-2`}>
+              EMAIL ADDRESS
+            </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <BsEnvelope className={`h-5 w-5 ${darkMode ? 'text-gray-500' : 'text-gray-400'} transition-colors duration-200`} />
+                <BsEnvelope className={`h-5 w-5 ${darkMode ? 'text-neo-white/50' : 'text-neo-black/50'}`} />
               </div>
               <input
-                id="email-address"
+                id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`input pl-10 ${darkMode ? 'bg-dark-300 border-dark-400 text-white' : 'bg-white border-gray-300 text-gray-900'} transition-colors duration-200`}
-                placeholder="Email address"
+                className={`neo-input pl-10 text-lg font-bold`}
+                placeholder="ENTER YOUR EMAIL"
               />
             </div>
-            
+          </div>
+
+          <div>
+            <label htmlFor="password" className={`block text-sm font-black ${darkMode ? 'text-neo-white' : 'text-neo-black'} mb-2`}>
+              PASSWORD
+            </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <BsLock className={`h-5 w-5 ${darkMode ? 'text-gray-500' : 'text-gray-400'} transition-colors duration-200`} />
+                <BsLock className={`h-5 w-5 ${darkMode ? 'text-neo-white/50' : 'text-neo-black/50'}`} />
               </div>
               <input
                 id="password"
@@ -192,25 +214,30 @@ const Register: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`input pl-10 ${darkMode ? 'bg-dark-300 border-dark-400 text-white' : 'bg-white border-gray-300 text-gray-900'} transition-colors duration-200`}
-                placeholder="Password"
+                className={`neo-input pl-10 text-lg font-bold`}
+                placeholder="ENTER YOUR PASSWORD"
               />
             </div>
-            
+          </div>
+
+          <div>
+            <label htmlFor="confirmPassword" className={`block text-sm font-black ${darkMode ? 'text-neo-white' : 'text-neo-black'} mb-2`}>
+              CONFIRM PASSWORD
+            </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <BsLock className={`h-5 w-5 ${darkMode ? 'text-gray-500' : 'text-gray-400'} transition-colors duration-200`} />
+                <BsLock className={`h-5 w-5 ${darkMode ? 'text-neo-white/50' : 'text-neo-black/50'}`} />
               </div>
               <input
-                id="confirm-password"
+                id="confirmPassword"
                 name="confirmPassword"
                 type="password"
                 autoComplete="new-password"
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`input pl-10 ${darkMode ? 'bg-dark-300 border-dark-400 text-white' : 'bg-white border-gray-300 text-gray-900'} transition-colors duration-200`}
-                placeholder="Confirm Password"
+                className={`neo-input pl-10 text-lg font-bold`}
+                placeholder="CONFIRM YOUR PASSWORD"
               />
             </div>
           </div>
@@ -219,28 +246,29 @@ const Register: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn btn-primary w-full py-3 flex justify-center items-center"
+              className="btn btn-primary w-full text-lg font-black"
             >
               {isLoading ? (
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               ) : (
-                <>
-                  <BsPersonPlus className="mr-2" />
-                  Create Account
-                </>
+                <BsPersonPlus className="mr-2 text-xl" />
               )}
+              {isLoading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
             </button>
           </div>
         </form>
-        
+
         <div className="mt-6 text-center">
-          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} transition-colors duration-200`}>
-            Already have an account?{' '}
-            <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500 transition-colors duration-200">
-              Sign in
+          <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+            ALREADY HAVE AN ACCOUNT?{' '}
+            <Link
+              to="/login"
+              className={`font-black hover:text-neo-blue transition-colors duration-200 ${darkMode ? 'text-neo-white' : 'text-neo-black'}`}
+            >
+              SIGN IN HERE
             </Link>
           </p>
         </div>

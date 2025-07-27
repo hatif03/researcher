@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import researchService from '../services/researchService';
-import { FiDownload, FiExternalLink, FiLoader, FiAlertCircle } from 'react-icons/fi';
+import { FiDownload, FiExternalLink, FiLoader, FiAlertCircle, FiArrowLeft } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -103,278 +103,195 @@ const ResearchResult: React.FC = () => {
       setIsPdfLoading(false);
     }
   };
-  
-  if (isLoading || status === 'in_progress') {
+
+  if (isLoading) {
     return (
-      <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="card text-center py-16">
-          <div className="flex flex-col items-center">
-            <FiLoader className="animate-spin text-primary-600 mb-4" size={48} />
-            <h2 className="text-2xl font-bold mb-2">Researching...</h2>
-            <p className="text-gray-600 mb-4 max-w-md">
-              We're conducting deep research on your topic. This usually takes 1-2 minutes.
-            </p>
-            <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mt-4">
-              <div className="h-full bg-primary-500 rounded-full animate-pulse"></div>
-            </div>
+      <div className="container mx-auto max-w-6xl px-4 py-8">
+        <div className="text-center py-16">
+          <div className={`w-24 h-24 border-2 border-neo-black dark:border-neo-white shadow-neo-lg ${darkMode ? 'bg-neo-blue' : 'bg-neo-blue'} flex items-center justify-center mx-auto mb-8`}>
+            <FiLoader className="animate-spin text-neo-white text-4xl" />
           </div>
+          <h2 className="text-3xl font-black mb-4">
+            {status === 'in_progress' ? 'RESEARCHING...' : 'LOADING...'}
+          </h2>
+          <p className={`text-xl font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+            {status === 'in_progress' 
+              ? 'OUR AI IS CONDUCTING COMPREHENSIVE RESEARCH ON YOUR TOPIC' 
+              : 'LOADING YOUR RESEARCH REPORT'
+            }
+          </p>
         </div>
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="card">
-          <div className="flex items-center justify-center text-red-500 mb-4">
-            <FiAlertCircle size={48} />
+        <div className="neo-card text-center">
+          <div className="flex items-center justify-center text-neo-red mb-6">
+            <FiAlertCircle size={64} />
           </div>
-          <h2 className="text-2xl font-bold text-center mb-4">Error</h2>
-          <p className="text-center text-gray-700 mb-6">{error}</p>
-          <div className="flex justify-center">
-            <Link to="/research" className="btn btn-primary">
-              Try Again
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  
-  if (!report) {
-    return (
-      <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="card text-center py-16">
-          <h2 className="text-2xl font-bold mb-4">No research found</h2>
-          <Link to="/research" className="btn btn-primary">
-            Start New Research
+          <h2 className="text-3xl font-black mb-6">ERROR</h2>
+          <p className="font-bold mb-8">{error}</p>
+          <Link to="/research" className="btn btn-primary inline-flex items-center text-lg">
+            <FiArrowLeft className="mr-2 text-xl" />
+            START NEW RESEARCH
           </Link>
         </div>
       </div>
     );
   }
-  
+
+  if (!report) {
+    return null;
+  }
+
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8">
-      <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">{report.topic}</h1>
-          <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-            Research completed on {new Date(report.created_at).toLocaleDateString()}
-          </p>
-        </div>
+    <div className="container mx-auto max-w-6xl px-4 py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <Link to="/history" className="btn btn-secondary inline-flex items-center mb-6">
+          <FiArrowLeft className="mr-2 text-xl" />
+          BACK TO HISTORY
+        </Link>
         
-        <div className="mt-4 md:mt-0">
-          <button
-            onClick={handleDownloadPdf}
-            disabled={isPdfLoading}
-            className={`btn btn-primary flex items-center ${isPdfLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-          >
-            {isPdfLoading ? (
-              <>
-                <FiLoader className="animate-spin mr-2" />
-                Downloading...
-              </>
-            ) : (
-              <>
-                <FiDownload className="mr-2" />
-                Download Report
-              </>
-            )}
-          </button>
+        <div className="neo-card">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+            <div className="flex-1">
+              <h1 className="text-3xl md:text-4xl font-black mb-4">{report.topic}</h1>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/70' : 'text-neo-black/70'}`}>
+                CREATED: {new Date(report.created_at).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </p>
+            </div>
+            
+            <div className="mt-4 md:mt-0">
+              <button
+                onClick={handleDownloadPdf}
+                disabled={isPdfLoading}
+                className="btn btn-primary inline-flex items-center text-lg"
+              >
+                {isPdfLoading ? (
+                  <FiLoader className="animate-spin mr-2 text-xl" />
+                ) : (
+                  <FiDownload className="mr-2 text-xl" />
+                )}
+                {isPdfLoading ? 'GENERATING PDF...' : 'DOWNLOAD PDF'}
+              </button>
+            </div>
+          </div>
+          
           {pdfError && (
-            <div className="text-red-500 text-sm mt-2">
-              {pdfError}
+            <div className={`${darkMode ? 'bg-neo-red/20 border-neo-red' : 'bg-neo-red/20 border-neo-red'} border-2 p-4 shadow-neo mb-6 flex items-start`}>
+              <div className="text-neo-red mt-0.5 mr-3 flex-shrink-0 text-xl">⚠️</div>
+              <p className={`text-sm font-bold ${darkMode ? 'text-neo-red' : 'text-neo-red'}`}>{pdfError}</p>
             </div>
           )}
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Table of Contents */}
-        <div className="lg:col-span-1">
-          <div className="card sticky top-4">
-            <h3 className="text-lg font-semibold mb-4">Sections</h3>
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={() => setActiveSection(0)}
-                  className={`block w-full text-left px-3 py-2 rounded-lg transition ${
-                    activeSection === 0
-                      ? `${darkMode ? 'bg-primary-900/30 text-primary-400' : 'bg-primary-50 text-primary-600'}`
-                      : `${darkMode ? 'hover:bg-dark-300' : 'hover:bg-gray-100'}`
-                  }`}
-                >
-                  Executive Summary
-                </button>
-              </li>
-              {report.sections.map((section, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => setActiveSection(index + 1)}
-                    className={`block w-full text-left px-3 py-2 rounded-lg transition ${
-                      activeSection === index + 1
-                        ? `${darkMode ? 'bg-primary-900/30 text-primary-400' : 'bg-primary-50 text-primary-600'}`
-                        : `${darkMode ? 'hover:bg-dark-300' : 'hover:bg-gray-100'}`
-                    }`}
-                  >
-                    {section.title}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button
-                  onClick={() => setActiveSection(report.sections.length + 1)}
-                  className={`block w-full text-left px-3 py-2 rounded-lg transition ${
-                    activeSection === report.sections.length + 1
-                      ? `${darkMode ? 'bg-primary-900/30 text-primary-400' : 'bg-primary-50 text-primary-600'}`
-                      : `${darkMode ? 'hover:bg-dark-300' : 'hover:bg-gray-100'}`
-                  }`}
-                >
-                  Sources
-                </button>
-              </li>
-            </ul>
+          
+          <div className={`p-6 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-purple/20' : 'bg-neo-yellow/20'}`}>
+            <h2 className="text-2xl font-black mb-4">EXECUTIVE SUMMARY</h2>
+            <div className="prose prose-lg max-w-none">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                className={`${darkMode ? 'text-neo-white' : 'text-neo-black'} font-bold`}
+              >
+                {report.summary}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
-        
-        {/* Content */}
-        <div className="lg:col-span-3">
-          <div className="card mb-6">
-            {activeSection === 0 && (
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Executive Summary</h2>
-                <div className={`prose ${darkMode ? 'dark:prose-invert' : ''} prose-lg max-w-none markdown-content`}>
-                  <ReactMarkdown 
-                    remarkPlugins={[remarkGfm]} 
-                    rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                    className="research-markdown"
-                    components={{
-                      h1: ({node, children, ...props}) => <h1 className="text-2xl font-bold mt-6 mb-4" {...props}>{children}</h1>,
-                      h2: ({node, children, ...props}) => <h2 className="text-xl font-bold mt-5 mb-3" {...props}>{children}</h2>,
-                      h3: ({node, children, ...props}) => <h3 className="text-lg font-bold mt-4 mb-2" {...props}>{children}</h3>,
-                      p: ({node, children, ...props}) => <p className="mb-4 whitespace-pre-line" {...props}>{children}</p>,
-                      ul: ({node, children, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-2" {...props}>{children}</ul>,
-                      ol: ({node, children, ...props}) => <ol className="list-decimal pl-6 mb-4 space-y-2" {...props}>{children}</ol>,
-                      li: ({node, children, ...props}) => <li className="mb-1" {...props}>{children}</li>,
-                      blockquote: ({node, children, ...props}) => <blockquote className={`border-l-4 ${darkMode ? 'border-gray-700' : 'border-gray-300'} pl-4 italic my-4`} {...props}>{children}</blockquote>,
-                      table: ({node, children, ...props}) => <div className="overflow-x-auto my-4"><table className={`min-w-full border-collapse border ${darkMode ? 'border-gray-700' : 'border-gray-300'}`} {...props}>{children}</table></div>,
-                      thead: ({node, children, ...props}) => <thead className={darkMode ? 'bg-dark-300' : 'bg-gray-100'} {...props}>{children}</thead>,
-                      tbody: ({node, children, ...props}) => <tbody className={`divide-y ${darkMode ? 'divide-gray-700' : 'divide-gray-300'}`} {...props}>{children}</tbody>,
-                      tr: ({node, children, ...props}) => <tr className={darkMode ? 'hover:bg-dark-300' : 'hover:bg-gray-50'} {...props}>{children}</tr>,
-                      th: ({node, children, ...props}) => <th className={`border ${darkMode ? 'border-gray-700' : 'border-gray-300'} px-4 py-2 text-left font-semibold`} {...props}>{children}</th>,
-                      td: ({node, children, ...props}) => <td className={`border ${darkMode ? 'border-gray-700' : 'border-gray-300'} px-4 py-2`} {...props}>{children}</td>,
-                      pre: ({node, children, ...props}) => <pre className={`${darkMode ? 'bg-dark-300' : 'bg-gray-100'} p-4 rounded overflow-x-auto my-4 whitespace-pre-wrap`} {...props}>{children}</pre>,
-                      code: ({node, className, children, ...props}: any) => {
-                        const match = /language-(\w+)/.exec(className || '')
-                        return className && match ? (
-                          <code className={`${className} block p-4 rounded overflow-x-auto`} {...props}>
-                            {children}
-                          </code>
-                        ) : (
-                          <code className={`${darkMode ? 'bg-dark-300 text-gray-200' : 'bg-gray-100 text-gray-800'} px-1 py-0.5 rounded text-sm`} {...props}>
-                            {children}
-                          </code>
-                        )
-                      }
-                    }}
-                  >
-                    {report.summary}
-                  </ReactMarkdown>
-                </div>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="mb-8">
+        <div className="flex flex-wrap gap-4">
+          <button
+            onClick={() => setActiveSection(0)}
+            className={`px-6 py-3 font-black text-lg border-2 border-neo-black dark:border-neo-white shadow-neo transition-all duration-200 ${
+              activeSection === 0
+                ? `${darkMode ? 'bg-neo-blue text-neo-white' : 'bg-neo-blue text-neo-white'}`
+                : `${darkMode ? 'bg-neo-black text-neo-white hover:bg-neo-purple/20' : 'bg-neo-white text-neo-black hover:bg-neo-yellow/20'}`
+            } hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
+          >
+            RESEARCH SECTIONS
+          </button>
+          <button
+            onClick={() => setActiveSection(1)}
+            className={`px-6 py-3 font-black text-lg border-2 border-neo-black dark:border-neo-white shadow-neo transition-all duration-200 ${
+              activeSection === 1
+                ? `${darkMode ? 'bg-neo-green text-neo-white' : 'bg-neo-green text-neo-white'}`
+                : `${darkMode ? 'bg-neo-black text-neo-white hover:bg-neo-purple/20' : 'bg-neo-white text-neo-black hover:bg-neo-yellow/20'}`
+            } hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-x-0 active:translate-y-0`}
+          >
+            SOURCES & CITATIONS
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      {activeSection === 0 && (
+        <div className="space-y-6">
+          {report.sections.map((section, index) => (
+            <div key={index} className="neo-card">
+              <h3 className="text-2xl font-black mb-6">{section.title}</h3>
+              <div className="prose prose-lg max-w-none">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                  className={`${darkMode ? 'text-neo-white' : 'text-neo-black'} font-bold`}
+                >
+                  {section.content}
+                </ReactMarkdown>
               </div>
-            )}
-            
-            {report.sections.map((section, index) => (
-              activeSection === index + 1 && (
-                <div key={index}>
-                  <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
-                  <div className="prose prose-lg max-w-none markdown-content">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]} 
-                      rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                      className="research-markdown"
-                      components={{
-                        h1: ({node, children, ...props}) => <h1 className="text-2xl font-bold mt-6 mb-4" {...props}>{children}</h1>,
-                        h2: ({node, children, ...props}) => <h2 className="text-xl font-bold mt-5 mb-3" {...props}>{children}</h2>,
-                        h3: ({node, children, ...props}) => <h3 className="text-lg font-bold mt-4 mb-2" {...props}>{children}</h3>,
-                        p: ({node, children, ...props}) => <p className="mb-4 whitespace-pre-line" {...props}>{children}</p>,
-                        ul: ({node, children, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-2" {...props}>{children}</ul>,
-                        ol: ({node, children, ...props}) => <ol className="list-decimal pl-6 mb-4 space-y-2" {...props}>{children}</ol>,
-                        li: ({node, children, ...props}) => <li className="mb-1" {...props}>{children}</li>,
-                        blockquote: ({node, children, ...props}) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4" {...props}>{children}</blockquote>,
-                        table: ({node, children, ...props}) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-gray-300" {...props}>{children}</table></div>,
-                        thead: ({node, children, ...props}) => <thead className="bg-gray-100" {...props}>{children}</thead>,
-                        tbody: ({node, children, ...props}) => <tbody className="divide-y divide-gray-300" {...props}>{children}</tbody>,
-                        tr: ({node, children, ...props}) => <tr className="hover:bg-gray-50" {...props}>{children}</tr>,
-                        th: ({node, children, ...props}) => <th className="border border-gray-300 px-4 py-2 text-left font-semibold" {...props}>{children}</th>,
-                        td: ({node, children, ...props}) => <td className="border border-gray-300 px-4 py-2" {...props}>{children}</td>,
-                        pre: ({node, children, ...props}) => <pre className="bg-gray-100 p-4 rounded overflow-x-auto my-4 whitespace-pre-wrap" {...props}>{children}</pre>,
-                        code: ({node, className, children, ...props}: any) => {
-                          const match = /language-(\w+)/.exec(className || '')
-                          return className && match ? (
-                            <code className={`${className} block p-4 rounded overflow-x-auto`} {...props}>
-                              {children}
-                            </code>
-                          ) : (
-                            <code className="bg-gray-100 px-1 py-0.5 rounded text-sm" {...props}>
-                              {children}
-                            </code>
-                          )
-                        }
-                      }}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeSection === 1 && (
+        <div className="neo-card">
+          <h3 className="text-2xl font-black mb-6">SOURCES & CITATIONS</h3>
+          <div className="grid gap-4">
+            {report.sources.map((source, index) => (
+              <div key={index} className={`p-4 border-2 border-neo-black dark:border-neo-white shadow-neo ${darkMode ? 'bg-neo-green/20' : 'bg-neo-orange/20'}`}>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h4 className="font-black text-lg mb-2">{source.title}</h4>
+                    {source.snippet && (
+                      <p className={`text-sm font-bold mb-3 ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+                        {source.snippet}
+                      </p>
+                    )}
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-sm font-bold ${darkMode ? 'text-neo-blue' : 'text-neo-blue'} hover:underline`}
                     >
-                      {section.content}
-                    </ReactMarkdown>
+                      {source.url}
+                    </a>
                   </div>
-                </div>
-              )
-            ))}
-            
-            {activeSection === report.sections.length + 1 && (
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Sources</h2>
-                <div className="space-y-4">
-                  {report.sources.map((source, index) => (
-                    <div key={index} className={`border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'} pb-4 last:border-0`}>
-                      <h3 className="font-medium mb-1">{source.title}</h3>
-                      <a
-                        href={source.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary-600 hover:underline flex items-center text-sm mb-2"
-                      >
-                        {source.url} <FiExternalLink className="ml-1" size={14} />
-                      </a>
-                      {source.snippet && (
-                        <div className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-sm prose prose-sm max-w-none`}>
-                          <ReactMarkdown 
-                            remarkPlugins={[remarkGfm]} 
-                            rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                            className="research-markdown"
-                            components={{
-                              h1: ({node, children, ...props}) => <h1 className="text-2xl font-bold mt-6 mb-4" {...props}>{children}</h1>,
-                              h2: ({node, children, ...props}) => <h2 className="text-xl font-bold mt-5 mb-3" {...props}>{children}</h2>,
-                              h3: ({node, children, ...props}) => <h3 className="text-lg font-bold mt-4 mb-2" {...props}>{children}</h3>,
-                              p: ({node, children, ...props}) => <p className="mb-4 whitespace-pre-line" {...props}>{children}</p>,
-                              ul: ({node, children, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-2" {...props}>{children}</ul>,
-                              ol: ({node, children, ...props}) => <ol className="list-decimal pl-6 mb-4 space-y-2" {...props}>{children}</ol>,
-                              li: ({node, children, ...props}) => <li className="mb-1" {...props}>{children}</li>
-                            }}
-                          >
-                            {source.snippet}
-                          </ReactMarkdown>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary ml-4"
+                  >
+                    <FiExternalLink className="text-xl" />
+                  </a>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

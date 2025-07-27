@@ -1,112 +1,285 @@
-/* Research Markdown Styling */
-.markdown-content {
-  /* Base styling */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
+/* Research Result Page Styles - Neo Brutalism */
+
+.research-markdown {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
 }
 
+.research-markdown h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-bottom: 3px solid #000000;
+  padding-bottom: 0.5rem;
+}
 
+.research-markdown h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: inherit;
+  border-left: 4px solid #3B82F6;
+  padding-left: 1rem;
+}
 
-/* Fix paragraph spacing */
+.research-markdown h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.research-markdown h4 {
+  font-size: 1.125rem;
+  font-weight: 900;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.research-markdown h5 {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.research-markdown h6 {
+  font-size: 0.875rem;
+  font-weight: 900;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+  text-transform: uppercase;
+}
+
 .research-markdown p {
-  margin-bottom: 1.5em;
-  white-space: pre-wrap; /* This preserves whitespace and line breaks */
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  line-height: 1.8;
 }
 
-/* Ensure proper spacing for lists */
-.research-markdown ul,
+.research-markdown ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
 .research-markdown ol {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding-left: 2em;
+  list-style-type: decimal;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .research-markdown li {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  line-height: 1.6;
 }
 
-/* Fix spacing around headings */
-.research-markdown h1,
-.research-markdown h2,
-.research-markdown h3,
-.research-markdown h4,
-.research-markdown h5,
-.research-markdown h6 {
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-}
-
-/* Proper blockquote styling */
 .research-markdown blockquote {
-  border-left: 4px solid;
-  @apply border-gray-300 dark:border-gray-700;
-  padding-left: 1em;
-  margin: 1.5em 0;
-  @apply text-gray-700 dark:text-gray-400;
-}
-
-/* Code block styling */
-.research-markdown pre {
-  @apply bg-gray-100 dark:bg-dark-300;
-  border-radius: 0.375rem;
-  padding: 1em;
-  overflow-x: auto;
-  margin: 1.5em 0;
-  white-space: pre-wrap;
+  border-left: 4px solid #FFD93D;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  font-weight: 700;
+  background-color: rgba(255, 217, 61, 0.1);
+  padding: 1rem 1.5rem;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
 .research-markdown code {
-  @apply bg-gray-100 dark:bg-dark-300 text-gray-800 dark:text-gray-200;
-  border-radius: 0.25rem;
-  padding: 0.2em 0.4em;
-  font-size: 0.875em;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: 1px solid #000000;
 }
 
-/* Table styling */
+.research-markdown pre {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 0;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.research-markdown pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+}
+
 .research-markdown table {
-  border-collapse: collapse;
   width: 100%;
-  margin: 1.5em 0;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
-.research-markdown th,
-.research-markdown td {
-  @apply border border-gray-300 dark:border-gray-700;
-  padding: 0.5em 0.75em;
-  text-align: left;
+.research-markdown thead {
+  background-color: #3B82F6;
+  color: #FFFFFF;
 }
 
 .research-markdown th {
-  @apply bg-gray-100 dark:bg-dark-300 font-semibold;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 900;
+  border: 1px solid #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* Dark mode support for hovering table rows */
-.research-markdown tr:hover {
-  @apply bg-gray-50 dark:bg-dark-200;
+.research-markdown td {
+  padding: 1rem;
+  border: 1px solid #000000;
+  font-weight: 700;
 }
 
-/* Additional spacing fixes */
-.research-markdown > *:first-child {
-  margin-top: 0;
+.research-markdown tbody tr:nth-child(even) {
+  background-color: rgba(59, 130, 246, 0.1);
 }
 
-.research-markdown > *:last-child {
-  margin-bottom: 0;
+.research-markdown tbody tr:hover {
+  background-color: rgba(255, 217, 61, 0.2);
 }
 
-/* Fix spacing between list items and paragraphs */
-.research-markdown li p {
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
+.research-markdown a {
+  color: #3B82F6;
+  text-decoration: underline;
+  font-weight: 900;
 }
 
-/* Ensure proper rendering of consecutive paragraphs */
-.research-markdown p + p {
-  margin-top: -0.5em;
+.research-markdown a:hover {
+  color: #1D4ED8;
+  text-decoration: none;
+}
+
+.research-markdown strong {
+  font-weight: 900;
+  color: inherit;
+}
+
+.research-markdown em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.research-markdown hr {
+  border: none;
+  height: 3px;
+  background-color: #000000;
+  margin: 2rem 0;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+/* Dark mode overrides */
+.dark .research-markdown h1 {
+  border-bottom-color: #FFFFFF;
+}
+
+.dark .research-markdown h2 {
+  border-left-color: #60A5FA;
+}
+
+.dark .research-markdown blockquote {
+  border-left-color: #FFD93D;
+  border-color: #FFFFFF;
+  box-shadow: 4px 4px 0px 0px #FFFFFF;
+}
+
+.dark .research-markdown code {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-color: #FFFFFF;
+}
+
+.dark .research-markdown pre {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-color: #FFFFFF;
+  box-shadow: 4px 4px 0px 0px #FFFFFF;
+}
+
+.dark .research-markdown table {
+  border-color: #FFFFFF;
+  box-shadow: 4px 4px 0px 0px #FFFFFF;
+}
+
+.dark .research-markdown th {
+  border-color: #FFFFFF;
+}
+
+.dark .research-markdown td {
+  border-color: #FFFFFF;
+}
+
+.dark .research-markdown tbody tr:nth-child(even) {
+  background-color: rgba(96, 165, 250, 0.1);
+}
+
+.dark .research-markdown tbody tr:hover {
+  background-color: rgba(255, 217, 61, 0.2);
+}
+
+.dark .research-markdown a {
+  color: #60A5FA;
+}
+
+.dark .research-markdown a:hover {
+  color: #93C5FD;
+}
+
+.dark .research-markdown hr {
+  background-color: #FFFFFF;
+  box-shadow: 2px 2px 0px 0px #FFFFFF;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .research-markdown h1 {
+    font-size: 1.75rem;
+  }
+  
+  .research-markdown h2 {
+    font-size: 1.375rem;
+  }
+  
+  .research-markdown h3 {
+    font-size: 1.125rem;
+  }
+  
+  .research-markdown pre {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .research-markdown table {
+    font-size: 0.875rem;
+  }
+  
+  .research-markdown th,
+  .research-markdown td {
+    padding: 0.75rem;
+  }
 } 
-
-/* Dark mode text coloring */
-.dark .markdown-content {
-  @apply text-gray-200;
-}
 

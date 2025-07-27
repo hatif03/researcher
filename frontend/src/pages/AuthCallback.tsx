@@ -1,75 +1,98 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../services/api';
-import authService from '../services/authService';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { FiLoader, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { useTheme } from '../contexts/ThemeContext';
 
 const AuthCallback: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const { handleAuthCallback } = useAuth();
   const navigate = useNavigate();
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [error, setError] = useState<string | null>(null);
-  const [status, setStatus] = useState<string>('Initializing...');
+  const { darkMode } = useTheme();
 
   useEffect(() => {
-    const handleAuthCallback = async () => {
+    const processCallback = async () => {
       try {
-        setStatus('Auth callback page loaded, handling OAuth response');
+        const code = searchParams.get('code');
+        const error = searchParams.get('error');
         
-        // Get the current session to see if sign-in was successful
-        setStatus('Authenticating...');
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        
-        if (sessionError) {
+        if (error) {
+          setStatus('error');
           setError('Authentication failed. Please try again.');
-          setTimeout(() => navigate('/login'), 3000);
           return;
         }
         
-        if (session) {
-          setStatus('Session found, attempting to get user data from backend...');
-          
-          try {
-            const userData = await authService.getCurrentUser();
-            
-            // Important: Add a small delay before navigation to ensure state is updated
-            setStatus('Successfully authenticated! Redirecting...');
-            setTimeout(() => {
-              navigate('/', { replace: true });
-            }, 1000);
-          } catch (userDataError) {
-            // If we have a session but failed to get user data, still try to proceed
-            setStatus('Error getting user data, but proceeding with session...');
-            setTimeout(() => {
-              navigate('/', { replace: true });
-            }, 1000);
-          }
-        } else {
-          setError('No session established. Please try again.');
-          setTimeout(() => navigate('/login'), 3000);
+        if (!code) {
+          setStatus('error');
+          setError('No authorization code received.');
+          return;
         }
-      } catch (err) {
-        setError('An unexpected error occurred. Please try again.');
-        setTimeout(() => navigate('/login'), 3000);
+        
+        await handleAuthCallback(code);
+        setStatus('success');
+        
+        // Redirect to home after a short delay
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+        
+      } catch (err: any) {
+        console.error('Auth callback error:', err);
+        setStatus('error');
+        setError(err.message || 'Authentication failed. Please try again.');
       }
     };
-
-    handleAuthCallback();
-  }, [navigate]);
+    
+    processCallback();
+  }, [searchParams, handleAuthCallback, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
-        {error ? (
-          <div className="text-red-500 mb-4">{error}</div>
-        ) : (
+    <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200`}>
+      <div className={`max-w-md w-full ${darkMode ? 'bg-neo-black' : 'bg-neo-white'} shadow-neo-lg border-2 border-neo-black dark:border-neo-white p-8 transition-colors duration-200 text-center`}>
+        {status === 'loading' && (
           <>
-            <h2 className="text-2xl font-semibold mb-4 dark:text-white">
-              Authentication in progress...
-            </h2>
-            <div className="text-gray-600 dark:text-gray-300 mb-4">
-              {status}
+            <div className={`w-24 h-24 border-2 border-neo-black dark:border-neo-white shadow-neo-lg ${darkMode ? 'bg-neo-blue' : 'bg-neo-blue'} flex items-center justify-center mx-auto mb-8`}>
+              <FiLoader className="animate-spin text-neo-white text-4xl" />
             </div>
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <h2 className="text-3xl font-black mb-4">AUTHENTICATING</h2>
+            <p className={`text-lg font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'}`}>
+              COMPLETING YOUR SIGN-IN PROCESS...
+            </p>
+          </>
+        )}
+        
+        {status === 'success' && (
+          <>
+            <div className={`w-24 h-24 border-2 border-neo-black dark:border-neo-white shadow-neo-lg ${darkMode ? 'bg-neo-green' : 'bg-neo-green'} flex items-center justify-center mx-auto mb-8`}>
+              <FiCheckCircle className="text-neo-white text-4xl" />
             </div>
+            <h2 className="text-3xl font-black mb-4">SUCCESS!</h2>
+            <p className={`text-lg font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'} mb-6`}>
+              YOU HAVE BEEN SUCCESSFULLY SIGNED IN.
+            </p>
+            <p className={`text-sm font-bold ${darkMode ? 'text-neo-white/60' : 'text-neo-black/60'}`}>
+              REDIRECTING TO DASHBOARD...
+            </p>
+          </>
+        )}
+        
+        {status === 'error' && (
+          <>
+            <div className={`w-24 h-24 border-2 border-neo-black dark:border-neo-white shadow-neo-lg ${darkMode ? 'bg-neo-red' : 'bg-neo-red'} flex items-center justify-center mx-auto mb-8`}>
+              <FiAlertCircle className="text-neo-white text-4xl" />
+            </div>
+            <h2 className="text-3xl font-black mb-4">AUTHENTICATION FAILED</h2>
+            <p className={`text-lg font-bold ${darkMode ? 'text-neo-white/80' : 'text-neo-black/80'} mb-6`}>
+              {error}
+            </p>
+            <button
+              onClick={() => navigate('/login')}
+              className="btn btn-primary inline-flex items-center text-lg"
+            >
+              GO BACK TO LOGIN
+            </button>
           </>
         )}
       </div>
